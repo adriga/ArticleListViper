@@ -14,7 +14,7 @@ class ProductListRouterSpy: ProductListWireframeProtocol {
     var showShoppingCartModule: Bool = false
 
     func showShoppingCartModule(shoppingCart: [ProductEntity]) {
-        self.showShoppingCartModule = true
+        showShoppingCartModule = true
     }
     
 }

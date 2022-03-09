@@ -40,28 +40,28 @@ class ShoppingCartInteractor {
 extension ShoppingCartInteractor: ShoppingCartInteractorInputProtocol {
     
     func addProductToCart(product: ProductEntity) {
-        if self.shoppingCart != nil {
-            self.shoppingCart?.append(product)
+        if shoppingCart != nil {
+            shoppingCart?.append(product)
         } else {
-            self.shoppingCart = [product]
+            shoppingCart = [product]
         }
-        self.presenter?.updateCart(cartProducts: self.shoppingCart)
+        presenter?.updateCart(cartProducts: shoppingCart)
     }
     
     func getTotalCartAmount() {
-        self.presenter?.updateTotalCartAmount(self.calculateKeychainsAmount() + self.calculateTshirtsAmount() + self.calculateMugsAmount())
+        presenter?.updateTotalCartAmount(calculateKeychainsAmount() + calculateTshirtsAmount() + calculateMugsAmount())
     }
     
     func getKeychainsAmount() {
-        self.presenter?.updateKeychainsCartAmount(self.calculateKeychainsAmount())
+        presenter?.updateKeychainsCartAmount(calculateKeychainsAmount())
     }
     
     func getTshirtsAmount() {
-        self.presenter?.updateTshirtsCartAmount(self.calculateTshirtsAmount())
+        presenter?.updateTshirtsCartAmount(calculateTshirtsAmount())
     }
     
     func getMugsAmount() {
-        self.presenter?.updateMugsCartAmount(self.calculateTshirtsAmount())
+        presenter?.updateMugsCartAmount(calculateTshirtsAmount())
     }
     
 }
@@ -70,7 +70,7 @@ extension ShoppingCartInteractor: ShoppingCartInteractorInputProtocol {
 extension ShoppingCartInteractor {
 
     func calculateKeychainsAmount() -> Double {
-        if let shoppingCart = self.shoppingCart {
+        if let shoppingCart = shoppingCart {
             let keychains = shoppingCart.filter( { $0.code == "KEYCHAIN" } )
             if let firstKeychain = keychains.first, let keychainPrice = Double(firstKeychain.price) {
                 if keychains.count % 2 == 0 {
@@ -85,7 +85,7 @@ extension ShoppingCartInteractor {
     }
     
     func calculateTshirtsAmount() -> Double {
-        if let shoppingCart = self.shoppingCart {
+        if let shoppingCart = shoppingCart {
             let tshirts = shoppingCart.filter( { $0.code == "TSHIRT" } )
             if let firstTshirt = tshirts.first, let tshirtPrice = Double(firstTshirt.price) {
                 if tshirts.count >= 3 {
@@ -100,7 +100,7 @@ extension ShoppingCartInteractor {
     }
     
     func calculateMugsAmount() -> Double {
-        if let shoppingCart = self.shoppingCart {
+        if let shoppingCart = shoppingCart {
             let mugs = shoppingCart.filter( { $0.code == "MUG" } )
             if let firstMug = mugs.first, let mugPrice = Double(firstMug.price) {
                 return mugPrice * Double(mugs.count)

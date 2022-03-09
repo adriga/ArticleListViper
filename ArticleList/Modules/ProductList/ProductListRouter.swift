@@ -14,10 +14,10 @@ class ProductListRouter {
     private var moduleFactory: ModuleFactory?
     
     func createModule(factory: ModuleFactory?) -> UIViewController? {
-        self.moduleFactory = factory
+        moduleFactory = factory
         // The module is created with all needed dependencies
         let view = factory?.makeProductListModule(router: self)
-        self.viewController = view
+        viewController = view
         view?.title = NSLocalizedString("products_title", comment: "")
         return view
     }
@@ -28,9 +28,9 @@ extension ProductListRouter: ProductListWireframeProtocol {
     
     func showShoppingCartModule(shoppingCart: [ProductEntity]) {
         // Navigate to shopping cart screen. This module is not implemented for the challenge
-//        if case let shoppingCartModule as ShoppingCartViewController = ShoppingCartRouter().createModule(factory: self.moduleFactory) {
+//        if case let shoppingCartModule as ShoppingCartViewController = ShoppingCartRouter().createModule(factory: moduleFactory) {
 //            shoppingCartModule.presenter?.shoppingCart = shoppingCart
-//            self.viewController?.navigationController?.pushViewController(shoppingCartModule, animated: true)
+//            viewController?.navigationController?.pushViewController(shoppingCartModule, animated: true)
 //        }
     }
     

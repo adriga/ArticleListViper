@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var moduleFactory: ModuleFactory = ModuleDependencyContainer()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        self.launchInitialScreen()
+        launchInitialScreen()
         return true
     }
 
@@ -25,11 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
 
     private func launchInitialScreen() {
-        self.window = UIWindow.init(frame: UIScreen.main.bounds)
-        if let initialScreen = ProductListRouter().createModule(factory: self.moduleFactory) {
-            self.window?.rootViewController = UINavigationController(rootViewController: initialScreen)
-            self.window?.makeKeyAndVisible()
-            self.configureAppGeneralAppearence()
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        if let initialScreen = ProductListRouter().createModule(factory: moduleFactory) {
+            window?.rootViewController = UINavigationController(rootViewController: initialScreen)
+            window?.makeKeyAndVisible()
+            configureAppGeneralAppearence()
         }
     }
     

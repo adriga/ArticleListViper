@@ -18,7 +18,6 @@ enum RequestOperationHelper {
         urlRequest.httpMethod = operationType
         urlRequest.timeoutInterval = 30
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
         guard body == nil else {
             do {
                 urlRequest = try Alamofire.JSONEncoding().encode(urlRequest, with: body)

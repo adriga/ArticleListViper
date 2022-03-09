@@ -21,24 +21,24 @@ class ProductListPresenterSpy: ProductListInteractorOutputProtocol, ShoppingCart
     var asyncExpectation: XCTestExpectation?
     
     func productsDidLoad(products: [ProductEntity]) {
-        self.productsOk = true
+        productsOk = true
         self.products = products
     }
     
     func getProductsError() {
-        self.productsError = true
-        self.products = [ProductEntity]()
+        productsError = true
+        products = [ProductEntity]()
     }
     
     func updateCart(cartProducts: [ProductEntity]?) {
-        self.updateCart = true
+        updateCart = true
     }
     
     func updateTotalCartAmount(_ cartAmount: Double) {
         if cartAmount == 0 {
-            self.totalCartAmountIsZero = true
+            totalCartAmountIsZero = true
         }
-        self.updateTotalCartAmount = true
+        updateTotalCartAmount = true
     }
     
     func updateKeychainsCartAmount(_ keychainsAmount: Double) {}

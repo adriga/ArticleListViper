@@ -6,6 +6,7 @@
 //  Copyright © 2019 Adrian Gil Alonso. All rights reserved.
 //
 
+import Foundation
 @testable import ArticleList
 
 class NetworkManagerSuccessMock: ApiServiceManagerProtocol {

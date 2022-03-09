@@ -17,21 +17,21 @@ struct ProductViewModel {
     let offer: String?
     
     init(entity: ProductEntity) {
-        self.code = entity.code
-        self.name = entity.name
-        self.price = entity.price
-        if self.code == "KEYCHAIN" {
-            self.image = "keychain"
-            self.offer = NSLocalizedString("keychain_discount", comment: "")
-        } else if self.code == "TSHIRT" {
-            self.image = "tshirt"
-            self.offer = NSLocalizedString("tshirt_discount", comment: "")
-        } else if self.code == "MUG" {
-            self.image = "mug"
-            self.offer = nil
+        code = entity.code
+        name = entity.name
+        price = entity.price
+        if code == "KEYCHAIN" {
+            image = "keychain"
+            offer = NSLocalizedString("keychain_discount", comment: "")
+        } else if code == "TSHIRT" {
+            image = "tshirt"
+            offer = NSLocalizedString("tshirt_discount", comment: "")
+        } else if code == "MUG" {
+            image = "mug"
+            offer = nil
         } else {
-            self.image = nil
-            self.offer = nil
+            image = nil
+            offer = nil
         }
     }
     

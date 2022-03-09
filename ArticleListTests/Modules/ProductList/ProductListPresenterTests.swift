@@ -17,11 +17,11 @@ class ProductListPresenterTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.sut = ProductListPresenter()
-        self.routerSpy = ProductListRouterSpy()
-        self.viewSpy = ProductListViewSpy()
-        self.sut.router = self.routerSpy
-        self.sut.view = self.viewSpy
+        sut = ProductListPresenter()
+        routerSpy = ProductListRouterSpy()
+        viewSpy = ProductListViewSpy()
+        sut.router = routerSpy
+        sut.view = viewSpy
     }
     
     override func tearDown() {
@@ -30,65 +30,65 @@ class ProductListPresenterTests: XCTestCase {
     
     func test_shoppingCartClicked_andCartHasProducts_shouldShowShoppingCartModule() {
         // Given
-        self.sut.shoppingCart = [ProductEntity(code: "KEYCHAIN", name: "Key Chain", price: "5")]
+        sut.shoppingCart = [ProductEntity(code: "KEYCHAIN", name: "Key Chain", price: "5")]
         
         // When
-        self.sut.shoppingCartClicked()
+        sut.shoppingCartClicked()
         
         // Then
-        XCTAssertTrue(self.routerSpy.showShoppingCartModule)
+        XCTAssertTrue(routerSpy.showShoppingCartModule)
     }
     
     func test_shoppingCartClicked_andNoProductsInCart_shouldNotShowShoppingCartModule() {
         // Given
-        self.sut.shoppingCart = nil
+        sut.shoppingCart = nil
         
         // When
-        self.sut.shoppingCartClicked()
+        sut.shoppingCartClicked()
         
         // Then
-        XCTAssertFalse(self.routerSpy.showShoppingCartModule)
+        XCTAssertFalse(routerSpy.showShoppingCartModule)
     }
     
     func test_productsDidLoad_shouldReloadProductsList() {
         // When
-        self.sut.productsDidLoad(products: [ProductEntity(code: "KEYCHAIN", name: "Key Chain", price: "5")])
+        sut.productsDidLoad(products: [ProductEntity(code: "KEYCHAIN", name: "Key Chain", price: "5")])
         
         // Then
-        XCTAssertTrue(self.viewSpy.reloadProducts)
+        XCTAssertTrue(viewSpy.reloadProducts)
     }
     
     func test_getProductsError_shouldShowNotProductsView() {
         // When
-        self.sut.getProductsError()
+        sut.getProductsError()
         
         // Then
-        XCTAssertTrue(self.viewSpy.showNotProducts)
+        XCTAssertTrue(viewSpy.showNotProducts)
     }
     
     func test_updateCart_withSomeProducts_shouldShowCartView_andRefreshCartProductsCount() {
         // When
-        self.sut.updateCart(cartProducts: [ProductEntity(code: "KEYCHAIN", name: "Key Chain", price: "5")])
+        sut.updateCart(cartProducts: [ProductEntity(code: "KEYCHAIN", name: "Key Chain", price: "5")])
         
         // Then
-        XCTAssertTrue(self.viewSpy.showCart)
-        XCTAssertTrue(self.viewSpy.setCartProductsCount)
+        XCTAssertTrue(viewSpy.showCart)
+        XCTAssertTrue(viewSpy.setCartProductsCount)
     }
     
     func test_updateCart_withNoProducts_shouldHideCartView() {
         // When
-        self.sut.updateCart(cartProducts: nil)
+        sut.updateCart(cartProducts: nil)
         
         // Then
-        XCTAssertTrue(self.viewSpy.hideCart)
+        XCTAssertTrue(viewSpy.hideCart)
     }
     
     func test_updateTotalCartAmount_shouldRefreshCartAmountInView() {
         // When
-        self.sut.updateTotalCartAmount(5)
+        sut.updateTotalCartAmount(5)
         
         // Then
-        XCTAssertTrue(self.viewSpy.setCartAmount)
+        XCTAssertTrue(viewSpy.setCartAmount)
     }
 
 }

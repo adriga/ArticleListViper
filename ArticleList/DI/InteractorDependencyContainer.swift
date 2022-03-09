@@ -20,7 +20,7 @@ extension InteractorDependencyContainer: InteractorFactory {
     
     func productListInteractor() -> ProductListInteractor {
         let productListInteractor = ProductListInteractor()
-        productListInteractor.networkManager = self.coreComponentsFactory.getNetworkManager()
+        productListInteractor.networkManager = coreComponentsFactory.getNetworkManager()
         return productListInteractor
     }
     

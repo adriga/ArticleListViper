@@ -21,15 +21,15 @@ struct ProductEntity {
     }
     
     init(dto: ProductDTO) {
-        self.code = dto.code
-        self.name = dto.name
-        self.price = "\(dto.price)"
+        code = dto.code
+        name = dto.name
+        price = "\(dto.price)"
     }
     
     init(viewModel: ProductViewModel) {
-        self.code = viewModel.code
-        self.name = viewModel.name
-        self.price = viewModel.price
+        code = viewModel.code
+        name = viewModel.name
+        price = viewModel.price
     }
     
 }

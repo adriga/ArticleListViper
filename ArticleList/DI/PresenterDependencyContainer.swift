@@ -9,7 +9,7 @@
 import Foundation
 
 class PresenterDependencyContainer {
-    private lazy var interactorFactory: InteractorFactory = InteractorDependencyContainer(coreComponentsFactory: self.coreComponentsFactory)
+    private lazy var interactorFactory: InteractorFactory = InteractorDependencyContainer(coreComponentsFactory: coreComponentsFactory)
     private var coreComponentsFactory: CoreComponentsFactory
     
     init(coreComponentsFactory: CoreComponentsFactory) {
@@ -20,8 +20,8 @@ class PresenterDependencyContainer {
 extension PresenterDependencyContainer: PresenterFactory {
     
     func productListPresenter(view: ProductListViewProtocol, router: ProductListWireframeProtocol) -> ProductListPresenter {
-        let productListInteractor = self.interactorFactory.productListInteractor()
-        let shoppingCartInteractor = self.interactorFactory.shoppingCartInteractor()
+        let productListInteractor = interactorFactory.productListInteractor()
+        let shoppingCartInteractor = interactorFactory.shoppingCartInteractor()
         let presenter = ProductListPresenter()
         presenter.view = view
         presenter.productListInteractor = productListInteractor

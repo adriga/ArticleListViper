@@ -11,11 +11,11 @@ import Alamofire
 class RequestOperation<T: ApiService>: Operation {
     
     // Base server url is hardcoded because there is only one environment, but in an app with different environments it would be in a plist file for each environment
-    final let serverBaseUrl = "https://api.myjson.com"
+    final let serverBaseUrl = "https://gist.githubusercontent.com/adriga"
     
     let sessionManager: SessionManager = {
         // SSL pinning to avoid MITM attacks
-        let serverTrustPolicies: [String: ServerTrustPolicy] = ["api.myjson.com": ServerTrustPolicy.pinCertificates(certificates: ServerTrustPolicy.certificates(in: Bundle.main), validateCertificateChain: true, validateHost: true)]
+        let serverTrustPolicies: [String: ServerTrustPolicy] = ["www.github.com": ServerTrustPolicy.pinCertificates(certificates: ServerTrustPolicy.certificates(in: Bundle.main), validateCertificateChain: true, validateHost: true)]
         let policyManager =  ServerTrustPolicyManager(policies: serverTrustPolicies)
         let sessionManager = SessionManager(serverTrustPolicyManager: policyManager)
         return sessionManager
@@ -28,24 +28,24 @@ class RequestOperation<T: ApiService>: Operation {
     var request: T
     
     init(request: T, completion:@escaping(ApiResponse<T>)->() ) {
-        self.url = self.serverBaseUrl + request.resourceName
-        self.body = request.body
-        self.operationType = request.operationType
+        url = serverBaseUrl + request.resourceName
+        body = request.body
+        operationType = request.operationType
         self.completion = completion
         self.request = request
     }
     
     override func main() {
         // RequestOperationHelper.getUrlRequest give us the valid url request with endpoint url, request body (if needed, for POST requests for example), request operation (GET, POST...), needed headers...
-        let request = RequestOperationHelper.getUrlRequest(url: self.url, body: self.body, operationType: self.operationType)
+        let request = RequestOperationHelper.getUrlRequest(url: url, body: body, operationType: operationType)
         if let urlRequest = request {
-            self.requestWithJSONResponse(urlRequest)
+            requestWithJSONResponse(urlRequest)
         }
     }
     
     // If we have others possible reponse types like XML, we can easily add other methods that parse and returns the correct DTO transparently to the interactors
     private func requestWithJSONResponse(_ urlRequest: URLRequest) {
-        self.sessionManager.request(urlRequest).validate().responseData { (response) in
+        sessionManager.request(urlRequest).validate().responseData { (response) in
             switch response.result {
             case .success(let responseObject):
                 do {

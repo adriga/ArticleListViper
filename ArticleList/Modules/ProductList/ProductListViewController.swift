@@ -25,7 +25,7 @@ class ProductListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.presenter?.viewDidLoad()
+        presenter?.viewDidLoad()
     }
     
 }
@@ -34,11 +34,11 @@ class ProductListViewController: UIViewController {
 extension ProductListViewController {
     
     @IBAction func tryAgainButtonClicked(_ sender: Any) {
-        self.presenter?.reloadProducts()
+        presenter?.reloadProducts()
     }
     
     @IBAction func shoppingCartClicked(gesture: UITapGestureRecognizer) {
-        self.presenter?.shoppingCartClicked()
+        presenter?.shoppingCartClicked()
     }
     
 }
@@ -46,50 +46,50 @@ extension ProductListViewController {
 extension ProductListViewController: ProductListViewProtocol {
     
     func configureView() {
-        self.tableView.register(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "ProductCell")
-        self.tableView.accessibilityIdentifier = "ProductList"
+        tableView.register(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "ProductCell")
+        tableView.accessibilityIdentifier = "ProductList"
         
-        self.noProductsLabel.font = UIFont.regularFont(ofSize: 20)
-        self.noProductsLabel.textColor = .black
-        self.noProductsLabel.text = NSLocalizedString("no_products", comment: "")
-        self.noProductsLabel.accessibilityIdentifier = NSLocalizedString("no_products", comment: "")
+        noProductsLabel.font = UIFont.regularFont(ofSize: 20)
+        noProductsLabel.textColor = .black
+        noProductsLabel.text = NSLocalizedString("no_products", comment: "")
+        noProductsLabel.accessibilityIdentifier = NSLocalizedString("no_products", comment: "")
         
-        self.tryAgainButton.titleLabel?.font = UIFont.regularFont(ofSize: 15)
-        self.tryAgainButton.setTitle(NSLocalizedString("try_again_button", comment: ""), for: .normal)
+        tryAgainButton.titleLabel?.font = UIFont.regularFont(ofSize: 15)
+        tryAgainButton.setTitle(NSLocalizedString("try_again_button", comment: ""), for: .normal)
         
-        self.cartProductsLabel.font = UIFont.boldFont(ofSize: 15)
-        self.cartProductsLabel.textColor = .black
-        self.cartProductsLabel.accessibilityIdentifier = "cartProductsLabel"
-        self.cartAmountLabel.font = UIFont.boldFont(ofSize: 18)
-        self.cartAmountLabel.textColor = .black
+        cartProductsLabel.font = UIFont.boldFont(ofSize: 15)
+        cartProductsLabel.textColor = .black
+        cartProductsLabel.accessibilityIdentifier = "cartProductsLabel"
+        cartAmountLabel.font = UIFont.boldFont(ofSize: 18)
+        cartAmountLabel.textColor = .black
         
-        self.cartView.layer.shadowColor = UIColor.black.cgColor
-        self.cartView.layer.shadowOpacity = 0.5
-        self.cartView.layer.shadowOffset = CGSize.zero
-        self.cartView.layer.shadowRadius = 1
-        self.cartView.layer.shadowPath = UIBezierPath(rect: UIScreen.main.bounds).cgPath
-        self.cartView.layer.shouldRasterize = true
+        cartView.layer.shadowColor = UIColor.black.cgColor
+        cartView.layer.shadowOpacity = 0.5
+        cartView.layer.shadowOffset = CGSize.zero
+        cartView.layer.shadowRadius = 1
+        cartView.layer.shadowPath = UIBezierPath(rect: UIScreen.main.bounds).cgPath
+        cartView.layer.shouldRasterize = true
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.shoppingCartClicked(gesture:)))
-        self.cartView.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(shoppingCartClicked(gesture:)))
+        cartView.addGestureRecognizer(tapGesture)
     }
     
     func reloadProducts(products: [ProductViewModel]) {
         self.products = products
-        self.noProductsView.isHidden = true
-        self.tableView.isHidden = false
-        self.cartView.isHidden = false
-        self.tableView.reloadData()
+        noProductsView.isHidden = true
+        tableView.isHidden = false
+        cartView.isHidden = false
+        tableView.reloadData()
     }
     
     func showNotProductsView() {
-        self.noProductsView.isHidden = false
-        self.tableView.isHidden = true
-        self.cartView.isHidden = true
+        noProductsView.isHidden = false
+        tableView.isHidden = true
+        cartView.isHidden = true
     }
     
     func showCartView() {
-        if self.tableViewBottomMargin.constant == 0 {
+        if tableViewBottomMargin.constant == 0 {
             UIView.animate(withDuration: 0.5, animations: {
                 self.tableViewBottomMargin.constant = self.cartViewHeight.constant
                 self.view.layoutIfNeeded()
@@ -98,7 +98,7 @@ extension ProductListViewController: ProductListViewProtocol {
     }
     
     func hideCartView() {
-        if self.tableViewBottomMargin.constant == self.cartViewHeight.constant {
+        if tableViewBottomMargin.constant == cartViewHeight.constant {
             UIView.animate(withDuration: 0.5, animations: {
                 self.tableViewBottomMargin.constant = 0
                 self.view.layoutIfNeeded()
@@ -107,11 +107,11 @@ extension ProductListViewController: ProductListViewProtocol {
     }
     
     func setCartProductsCount(_ cartCount: Int) {
-        self.cartProductsLabel.text = String(format: NSLocalizedString("shopping_cart_products", comment: ""), cartCount)
+        cartProductsLabel.text = String(format: NSLocalizedString("shopping_cart_products", comment: ""), cartCount)
     }
     
     func setCartAmount(_ cartAmount: Double) {
-        self.cartAmountLabel.text = String(format: NSLocalizedString("shopping_cart_total", comment: ""), cartAmount)
+        cartAmountLabel.text = String(format: NSLocalizedString("shopping_cart_total", comment: ""), cartAmount)
     }
     
 }
@@ -123,11 +123,11 @@ extension ProductListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.products?.count ?? 0
+        return products?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as? ProductCell, let products = self.products {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as? ProductCell, let products = products {
             cell.configureProductCell(product: products[indexPath.row])
             cell.accessibilityIdentifier = "ProductCell"
             return cell
@@ -141,8 +141,8 @@ extension ProductListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let products = self.products {
-            self.presenter?.didSelectProduct(product: ProductEntity(viewModel: products[indexPath.row]))
+        if let products = products {
+            presenter?.didSelectProduct(product: ProductEntity(viewModel: products[indexPath.row]))
         }
     }
     

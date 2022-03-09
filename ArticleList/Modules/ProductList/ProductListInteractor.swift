@@ -18,7 +18,7 @@ class ProductListInteractor {
 extension ProductListInteractor: ProductListInteractorInputProtocol {
     
     func getAllProducts() {
-        self.networkManager?.makeRequest(request: GetProductsApiService(), completion: { (response) in
+        networkManager?.makeRequest(request: GetProductsApiService(), completion: { (response) in
             switch response {
             case .failed:
                 self.presenter?.getProductsError()

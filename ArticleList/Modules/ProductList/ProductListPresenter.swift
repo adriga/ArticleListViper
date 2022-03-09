@@ -23,22 +23,22 @@ class ProductListPresenter {
 extension ProductListPresenter: ProductListPresenterProtocol {
     
     func viewDidLoad() {
-        self.view?.configureView()
-        self.productListInteractor?.getAllProducts()
+        view?.configureView()
+        productListInteractor?.getAllProducts()
     }
     
     func reloadProducts() {
-        self.productListInteractor?.getAllProducts()
+        productListInteractor?.getAllProducts()
     }
     
     func didSelectProduct(product: ProductEntity) {
-        self.shoppingCartInteractor?.addProductToCart(product: product)
-        self.shoppingCartInteractor?.getTotalCartAmount()
+        shoppingCartInteractor?.addProductToCart(product: product)
+        shoppingCartInteractor?.getTotalCartAmount()
     }
     
     func shoppingCartClicked() {
-        if let shoppingCart = self.shoppingCart {
-            self.router?.showShoppingCartModule(shoppingCart: shoppingCart)
+        if let shoppingCart = shoppingCart {
+            router?.showShoppingCartModule(shoppingCart: shoppingCart)
         }
     }
     
@@ -47,11 +47,11 @@ extension ProductListPresenter: ProductListPresenterProtocol {
 extension ProductListPresenter: ProductListInteractorOutputProtocol {
     
     func productsDidLoad(products: [ProductEntity]) {
-        self.view?.reloadProducts(products: products.map({ ProductViewModel(entity: $0) }))
+        view?.reloadProducts(products: products.map({ ProductViewModel(entity: $0) }))
     }
     
     func getProductsError() {
-        self.view?.showNotProductsView()
+        view?.showNotProductsView()
     }
     
 }
@@ -59,17 +59,17 @@ extension ProductListPresenter: ProductListInteractorOutputProtocol {
 extension ProductListPresenter: ShoppingCartInteractorOutputProtocol {
     
     func updateCart(cartProducts: [ProductEntity]?) {
-        self.shoppingCart = cartProducts
+        shoppingCart = cartProducts
         if let cart = cartProducts, cart.count > 0 {
-            self.view?.showCartView()
-            self.view?.setCartProductsCount(cart.count)
+            view?.showCartView()
+            view?.setCartProductsCount(cart.count)
         } else {
-            self.view?.hideCartView()
+            view?.hideCartView()
         }
     }
     
     func updateTotalCartAmount(_ cartAmount: Double) {
-        self.view?.setCartAmount(cartAmount)
+        view?.setCartAmount(cartAmount)
     }
     
     // These methods are not used for now, but could be useful to calculate amounts by product

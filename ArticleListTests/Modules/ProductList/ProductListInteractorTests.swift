@@ -16,7 +16,7 @@ class ProductListInteractorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.sut = ProductListInteractor()
+        sut = ProductListInteractor()
     }
     
     override func tearDown() {
@@ -26,30 +26,30 @@ class ProductListInteractorTests: XCTestCase {
     
     func test_getAllProducts_withSuccessReponse_shouldReturnProducts() {
         // Given
-        self.sut.networkManager = NetworkManagerSuccessMock()
-        self.presenterSpy = ProductListPresenterSpy()
-        self.sut.presenter = self.presenterSpy
+        sut.networkManager = NetworkManagerSuccessMock()
+        presenterSpy = ProductListPresenterSpy()
+        sut.presenter = presenterSpy
         
         // When
-        self.sut.getAllProducts()
+        sut.getAllProducts()
         
         // Then
-        XCTAssertTrue(self.presenterSpy.productsOk)
-        XCTAssertEqual(self.presenterSpy.products.count, 2)
+        XCTAssertTrue(presenterSpy.productsOk)
+        XCTAssertEqual(presenterSpy.products.count, 2)
     }
     
     func test_getAllProducts_withErrorReponse_shouldCallGetProductsError() {
         // Given
-        self.sut.networkManager = NetworkManagerErrorMock()
-        self.presenterSpy = ProductListPresenterSpy()
-        self.sut.presenter = self.presenterSpy
+        sut.networkManager = NetworkManagerErrorMock()
+        presenterSpy = ProductListPresenterSpy()
+        sut.presenter = presenterSpy
         
         // When
-        self.sut.getAllProducts()
+        sut.getAllProducts()
         
         // Then
-        XCTAssertTrue(self.presenterSpy.productsError)
-        XCTAssertEqual(self.presenterSpy.products.count, 0)
+        XCTAssertTrue(presenterSpy.productsError)
+        XCTAssertEqual(presenterSpy.products.count, 0)
     }
     
 }

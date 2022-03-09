@@ -6,9 +6,6 @@
 //  Copyright © 2018 Adrian Gil Alonso. All rights reserved.
 //
 
-
-// I like to use Operations and OperationQueue because they give you a lot of control over api requests. You can pause it easily, resume, cancel, define a number of concurrent operations, know the operation status... Maybe this is not necessary for this example, but it's really useful in a big app.
-
 import Foundation
 
 // ApiResponse depends on api request response type. It makes very easy the parse process
@@ -32,7 +29,7 @@ extension NetworkManager: ApiServiceManagerProtocol {
     
     func makeRequest<T: ApiService>(request: T, completion:@escaping(ApiResponse<T>)->() ) {
         let requestOperation: RequestOperation = RequestOperation(request: request, completion: completion)
-        self.apiOperationQueue.addOperation(requestOperation)
+        apiOperationQueue.addOperation(requestOperation)
     }
     
 }

@@ -8,6 +8,7 @@
 
 import XCTest
 import OHHTTPStubs
+import KIF
 @testable import ArticleList
 
 class ProductListUITests: KIFTestCase {
@@ -16,8 +17,8 @@ class ProductListUITests: KIFTestCase {
 
     override func beforeEach() {
         super.beforeEach()
-        self.moduleFactory = ModuleDependencyContainer()
-        if let productListModule = ProductListRouter().createModule(factory: self.moduleFactory) as? ProductListViewController {
+        moduleFactory = ModuleDependencyContainer()
+        if let productListModule = ProductListRouter().createModule(factory: moduleFactory) as? ProductListViewController {
             UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: productListModule)
         }
     }
@@ -30,7 +31,7 @@ class ProductListUITests: KIFTestCase {
     func test_viewDidLoad_withProductsErrorResponse_shouldShowNoProductsView() {
         // Given
         // Mock GET request Error
-        stub(condition: isAbsoluteURLString("https://api.myjson.com/bins/w8qe2") && isMethodGET()) { _ in
+        stub(condition: isAbsoluteURLString("https://gist.githubusercontent.com/adriga/786347e52a898f1b1c1562b6ed8af132/raw/822d1d538e24cf7fa1b848f0624eb9bf7d4e9c10/products.json") && isMethodGET()) { _ in
             return OHHTTPStubsResponse(jsonObject: [String: Any](), statusCode: 500, headers: nil)
         }
         
@@ -45,7 +46,7 @@ class ProductListUITests: KIFTestCase {
     func test_viewDidLoad_withProductsSuccessResponse_shouldShowProducts() {
         // Given
         // Mock GET request OK
-        stub(condition: isAbsoluteURLString("https://api.myjson.com/bins/w8qe2") && isMethodGET()) { _ in
+        stub(condition: isAbsoluteURLString("https://gist.githubusercontent.com/adriga/786347e52a898f1b1c1562b6ed8af132/raw/822d1d538e24cf7fa1b848f0624eb9bf7d4e9c10/products.json") && isMethodGET()) { _ in
             let obj = ["products": [["code": "KEYCHAIN", "name": "Key Chain", "price": 5],
                                     ["code": "TSHIRT", "name": "T-Shirt", "price": 20],
                                     ["code": "MUG", "name": "Coffee Mug", "price": 7.5]]] as [String: Any]
@@ -59,7 +60,7 @@ class ProductListUITests: KIFTestCase {
     func test_whenClickOnAProdut_itShouldBeAddedToCart() {
         // Given
         // Mock GET request OK
-        stub(condition: isAbsoluteURLString("https://api.myjson.com/bins/w8qe2") && isMethodGET()) { _ in
+        stub(condition: isAbsoluteURLString("https://gist.githubusercontent.com/adriga/786347e52a898f1b1c1562b6ed8af132/raw/822d1d538e24cf7fa1b848f0624eb9bf7d4e9c10/products.json") && isMethodGET()) { _ in
             let obj = ["products": [["code": "KEYCHAIN", "name": "Key Chain", "price": 5],
                                     ["code": "TSHIRT", "name": "T-Shirt", "price": 20],
                                     ["code": "MUG", "name": "Coffee Mug", "price": 7.5]]] as [String: Any]

@@ -16,7 +16,7 @@ class NetworkManagerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.sut = NetworkManager()
+        sut = NetworkManager()
     }
     
     override func tearDown() {
@@ -27,7 +27,7 @@ class NetworkManagerTests: XCTestCase {
     func test_GETRequest_with200OkResponse_shouldResponseOk() {
         // Given
         // Mock GET request OK
-        stub(condition: isAbsoluteURLString("https://api.myjson.com/test") && isMethodGET()) { _ in
+        stub(condition: isAbsoluteURLString("https://gist.githubusercontent.com/adriga/test") && isMethodGET()) { _ in
             let obj = ["data1": "data1",
                        "data2": "data2"] as [String: Any]
             return OHHTTPStubsResponse(jsonObject: obj, statusCode: 200, headers: nil)
@@ -36,7 +36,7 @@ class NetworkManagerTests: XCTestCase {
         let promise = expectation(description: "Test API service response OK")
         
         // When
-        self.sut.makeRequest(request: TestGetApiService()) { (response) in
+        sut.makeRequest(request: TestGetApiService()) { (response) in
             
             // Then
             switch response {
@@ -53,14 +53,14 @@ class NetworkManagerTests: XCTestCase {
     func test_GETRequest_with500ErrorResponse_shouldResponseError() {
         // Given
         // Mock GET request KO with 500 error
-        stub(condition: isAbsoluteURLString("https://api.myjson.com/test") && isMethodGET()) { _ in
+        stub(condition: isAbsoluteURLString("https://gist.githubusercontent.com/adriga/test") && isMethodGET()) { _ in
             return OHHTTPStubsResponse(jsonObject: [String: Any](), statusCode: 500, headers: nil)
         }
         
         let promise = expectation(description: "Test API service response Error")
         
         // When
-        self.sut.makeRequest(request: TestGetApiService()) { (response) in
+        sut.makeRequest(request: TestGetApiService()) { (response) in
             
             // Then
             switch response {

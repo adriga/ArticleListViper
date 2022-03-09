@@ -23,27 +23,27 @@ class ProductListViewSpy: ProductListViewProtocol {
     func configureView() {}
     
     func reloadProducts(products: [ProductViewModel]) {
-        self.reloadProducts = true
+        reloadProducts = true
     }
     
     func showNotProductsView() {
-        self.showNotProducts = true
+        showNotProducts = true
     }
     
     func showCartView() {
-        self.showCart = true
+        showCart = true
     }
     
     func hideCartView() {
-        self.hideCart = true
+        hideCart = true
     }
     
     func setCartProductsCount(_ cartCount: Int) {
-        self.setCartProductsCount = true
+        setCartProductsCount = true
     }
     
     func setCartAmount(_ cartAmount: Double) {
-        self.setCartAmount = true
+        setCartAmount = true
     }
 
 }

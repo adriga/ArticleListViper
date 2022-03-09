@@ -16,7 +16,7 @@ class CoreComponentsDependencyContainer {
 extension CoreComponentsDependencyContainer: CoreComponentsFactory {
     
     func getNetworkManager() -> NetworkManager {
-        return self.networkManager
+        return networkManager
     }
     
 }

@@ -17,27 +17,27 @@ class ProductCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.productName.font = UIFont.boldFont(ofSize: 17)
-        self.productName.textColor = .mediumLabelColor
-        self.productPrice.font = UIFont.mediumFont(ofSize: 15)
-        self.productPrice.textColor = .mediumLabelColor
-        self.offerLabel.font = UIFont.regularFont(ofSize: 12)
-        self.offerLabel.textColor = .mediumLabelColor
+        productName.font = UIFont.boldFont(ofSize: 17)
+        productName.textColor = .mediumLabelColor
+        productPrice.font = UIFont.mediumFont(ofSize: 15)
+        productPrice.textColor = .mediumLabelColor
+        offerLabel.font = UIFont.regularFont(ofSize: 12)
+        offerLabel.textColor = .mediumLabelColor
     }
     
     public func configureProductCell(product: ProductViewModel) {
         if let image = product.image {
-            self.productImage.image = UIImage(named: image)
+            productImage.image = UIImage(named: image)
         }
         if let offer = product.offer {
-            self.offerLabel.isHidden = false
-            self.offerLabel.text = offer
+            offerLabel.isHidden = false
+            offerLabel.text = offer
         } else {
-            self.offerLabel.isHidden = true
+            offerLabel.isHidden = true
         }
-        self.productName.text = product.name
-        self.productName.accessibilityIdentifier = product.name
-        self.productPrice.text = product.price + "€"
+        productName.text = product.name
+        productName.accessibilityIdentifier = product.name
+        productPrice.text = product.price + "€"
     }
     
 }
